@@ -4,15 +4,20 @@ import { DatePipe } from 'angular2/common';
 
 @Component({
 	selector: 'todo-app',
-	templateUrl: 'app/app.html'
+	templateUrl: 'app/app.html',
+	styleUrls: ['app/app.css'],
+	providers: [DatePipe]
 })
 export default class TodoApp {
 	todoStore: TodoStore;
+	currentDateTime: number;
 	newTodoText = '';
 	newDueDate: number;
 
 	constructor(todoStore: TodoStore, private datePipe: DatePipe) {
 		this.todoStore = todoStore;
+		let currentDate = this.datePipe.transform(new Date(), ['yyyy-MM-dd']);
+		this.currentDateTime = new Date(currentDate).getTime()
 	}
 
 	stopEditing(todo: Todo, editedTitle: string) {

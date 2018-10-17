@@ -15,6 +15,8 @@ var TodoApp = (function () {
         this.datePipe = datePipe;
         this.newTodoText = '';
         this.todoStore = todoStore;
+        var currentDate = this.datePipe.transform(new Date(), ['yyyy-MM-dd']);
+        this.currentDateTime = new Date(currentDate).getTime();
     }
     TodoApp.prototype.stopEditing = function (todo, editedTitle) {
         todo.title = editedTitle;
@@ -54,7 +56,9 @@ var TodoApp = (function () {
     TodoApp = __decorate([
         core_1.Component({
             selector: 'todo-app',
-            templateUrl: 'app/app.html'
+            templateUrl: 'app/app.html',
+            styleUrls: ['app/app.css'],
+            providers: [common_1.DatePipe]
         }), 
         __metadata('design:paramtypes', [store_1.TodoStore, common_1.DatePipe])
     ], TodoApp);
