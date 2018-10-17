@@ -4,7 +4,7 @@ export class Todo {
 
 	private _title: String;
 	private _dueDate: number;
-
+	private _priority: String;
 	get title() {
 		return this._title;
 	}
@@ -20,11 +20,20 @@ export class Todo {
 		this._dueDate = value;
 	}
 
-	constructor(title: String, dueDate: number) {
+	// priority
+	get priority() {
+		return this._priority;
+	}
+	set priority(value: String) {
+		this._priority = value;
+	}
+
+	constructor(title: String, dueDate: number, priority: String) {
 		this.completed = false;
 		this.editing = false;
 		this.title = title.trim();
 		this.dueDate = dueDate;
+		this.priority = priority;
 	}
 }
 
@@ -34,8 +43,8 @@ export class TodoStore {
 	constructor() {
 		let persistedTodos = JSON.parse(localStorage.getItem('angular2-todos') || '[]');
 		// Normalize back into classes
-		this.todos = persistedTodos.map( (todo: {_title: String, completed: Boolean, _dueDate: number}) => {
-			let ret = new Todo(todo._title, todo._dueDate);
+		this.todos = persistedTodos.map((todo: { _title: String, completed: Boolean, _dueDate: number, _priority: String}) => {
+			let ret = new Todo(todo._title, todo._dueDate, todo._priority);
 			ret.completed = todo.completed;
 			return ret;
 		});
@@ -81,8 +90,8 @@ export class TodoStore {
 		this.updateStore();
 	}
 
-	add(title: String, dueDate: number) {
-		this.todos.push(new Todo(title, dueDate));
+	add(title: String, dueDate: number, priority: string) {
+		this.todos.push(new Todo(title, dueDate, priority));
 		this.updateStore();
 	}
 }

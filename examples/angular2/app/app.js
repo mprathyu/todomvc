@@ -48,9 +48,10 @@ var TodoApp = (function () {
     TodoApp.prototype.addTodo = function () {
         if (this.newTodoText.trim().length) {
             var currentNumericTime = this.datePipe.transform(new Date(this.newDueDate), ['yyyy-MM-dd']);
-            this.todoStore.add(this.newTodoText, new Date(currentNumericTime).getTime());
+            this.todoStore.add(this.newTodoText, new Date(currentNumericTime).getTime(), this.priority);
             this.newTodoText = '';
             this.newDueDate = null;
+            this.priority = '';
         }
     };
     TodoApp = __decorate([

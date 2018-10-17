@@ -24,7 +24,7 @@
 				<div class="view">
 					<input class="toggle" type="checkbox" (click)="toggleCompletion(todo)" [checked]="todo.completed">
 					<label (dblclick)="editTodo(todo)">
-						{{todo.title}}, {{todo.dueDate | date: 'mediumDate'}}
+						{{todo.title}}, {{todo.dueDate | date: 'mediumDate'}} - <span class="priority">{{todo.priority}}</span>
 						<span class="pills" [class.dueSoon]="currentDateTime === todo.dueDate" [class.overDue]="currentDateTime > todo.dueDate">
 							{{currentDateTime === todo.dueDate ? "Due Soon" : currentDateTime > todo.dueDate ? "Overdue" : "In Progress"}}
 						</span>
