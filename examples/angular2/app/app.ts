@@ -1,5 +1,5 @@
-import {Component} from 'angular2/core';
-import {TodoStore, Todo} from './services/store';
+import { Component } from 'angular2/core';
+import { TodoStore, Todo } from './services/store';
 import { DatePipe } from 'angular2/common'
 
 @Component({
@@ -53,7 +53,7 @@ export default class TodoApp {
 		this.todoStore.toggleCompletion(todo);
 	}
 
-	remove(todo: Todo){
+	remove(todo: Todo) {
 		this.todoStore.remove(todo);
 	}
 
@@ -67,7 +67,7 @@ export default class TodoApp {
 		}
 	}
 
-	orderByPriority(prop:string) {
-		return this.todoStore.todos.sort((a:any, b:any) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
+	orderByPriority(prop: string) {
+		return this.todoStore.todos.sort((a: any, b: any) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
 	}
 }
