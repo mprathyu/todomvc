@@ -1,8 +1,9 @@
 var Todo = (function () {
-    function Todo(title) {
+    function Todo(title, dueDate) {
         this.completed = false;
         this.editing = false;
         this.title = title.trim();
+        this.dueDate = dueDate;
     }
     Object.defineProperty(Todo.prototype, "title", {
         get: function () {
@@ -10,6 +11,17 @@ var Todo = (function () {
         },
         set: function (value) {
             this._title = value.trim();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Todo.prototype, "dueDate", {
+        // Due Date
+        get: function () {
+            return this._dueDate;
+        },
+        set: function (value) {
+            this._dueDate = value;
         },
         enumerable: true,
         configurable: true
@@ -22,7 +34,7 @@ var TodoStore = (function () {
         var persistedTodos = JSON.parse(localStorage.getItem('angular2-todos') || '[]');
         // Normalize back into classes
         this.todos = persistedTodos.map(function (todo) {
-            var ret = new Todo(todo._title);
+            var ret = new Todo(todo._title, todo._dueDate);
             ret.completed = todo.completed;
             return ret;
         });
@@ -58,8 +70,8 @@ var TodoStore = (function () {
         this.todos.splice(this.todos.indexOf(todo), 1);
         this.updateStore();
     };
-    TodoStore.prototype.add = function (title) {
-        this.todos.push(new Todo(title));
+    TodoStore.prototype.add = function (title, dueDate) {
+        this.todos.push(new Todo(title, dueDate));
         this.updateStore();
     };
     return TodoStore;
