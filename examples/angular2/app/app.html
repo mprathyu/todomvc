@@ -41,7 +41,7 @@
 			<input id="toggle-all" class="toggle-all" type="checkbox" *ngIf="todoStore.todos.length" #toggleall [checked]="todoStore.allCompleted()"
 			 (click)="todoStore.setAllTo(toggleall.checked)">
 			<ul class="todo-list">
-				<li *ngFor="#todo of oderByPriority('priority')" [class.completed]="todo.completed" [class.editing]="todo.editing">
+				<li *ngFor="#todo of orderByPriority('priority')" [class.completed]="todo.completed" [class.editing]="todo.editing">
 					<div class="view">
 						<input class="toggle" type="checkbox" (click)="toggleCompletion(todo)" [checked]="todo.completed">
 						<label (dblclick)="editTodo(todo)">{{todo.title}}, {{todo.dueDate | date: 'mediumDate'}} - <span class="priority">{{todo.priority}}</span>
