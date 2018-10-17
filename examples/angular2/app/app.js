@@ -54,6 +54,9 @@ var TodoApp = (function () {
             this.priority = '';
         }
     };
+    TodoApp.prototype.orderByPriority = function (prop) {
+        return this.todoStore.todos.sort(function (a, b) { return a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1; });
+    };
     TodoApp = __decorate([
         core_1.Component({
             selector: 'todo-app',

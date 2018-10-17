@@ -66,5 +66,8 @@ export default class TodoApp {
 			this.priority = ''
 		}
 	}
-	
+
+	orderByPriority(prop:string) {
+		return this.todoStore.todos.sort((a:any, b:any) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
+	}
 }
