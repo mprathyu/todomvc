@@ -9,8 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var store_1 = require('./services/store');
+var common_1 = require('angular2/common');
 var TodoApp = (function () {
-    function TodoApp(todoStore) {
+    function TodoApp(todoStore, datePipe) {
+        this.datePipe = datePipe;
         this.newTodoText = '';
         this.todoStore = todoStore;
     }
@@ -43,8 +45,10 @@ var TodoApp = (function () {
     };
     TodoApp.prototype.addTodo = function () {
         if (this.newTodoText.trim().length) {
-            this.todoStore.add(this.newTodoText);
+            var currentNumericTime = this.datePipe.transform(new Date(this.newDueDate), ['yyyy-MM-dd']);
+            this.todoStore.add(this.newTodoText, new Date(currentNumericTime).getTime());
             this.newTodoText = '';
+            this.newDueDate = null;
         }
     };
     TodoApp = __decorate([
@@ -52,7 +56,7 @@ var TodoApp = (function () {
             selector: 'todo-app',
             templateUrl: 'app/app.html'
         }), 
-        __metadata('design:paramtypes', [store_1.TodoStore])
+        __metadata('design:paramtypes', [store_1.TodoStore, common_1.DatePipe])
     ], TodoApp);
     return TodoApp;
 })();

@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {TodoStore, Todo} from './services/store';
+import { DatePipe } from 'angular2/common';
 
 @Component({
 	selector: 'todo-app',
@@ -8,8 +9,9 @@ import {TodoStore, Todo} from './services/store';
 export default class TodoApp {
 	todoStore: TodoStore;
 	newTodoText = '';
+	newDueDate: number;
 
-	constructor(todoStore: TodoStore) {
+	constructor(todoStore: TodoStore, private datePipe: DatePipe) {
 		this.todoStore = todoStore;
 	}
 
@@ -51,8 +53,10 @@ export default class TodoApp {
 
 	addTodo() {
 		if (this.newTodoText.trim().length) {
-			this.todoStore.add(this.newTodoText);
+			const currentNumericTime = this.datePipe.transform(new Date(this.newDueDate), ['yyyy-MM-dd']);
+			this.todoStore.add(this.newTodoText, new Date(currentNumericTime).getTime());
 			this.newTodoText = '';
+			this.newDueDate = null;
 		}
 	}
 }
